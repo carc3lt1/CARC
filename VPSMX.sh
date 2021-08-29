@@ -344,44 +344,6 @@ msg -bar2
 [[ $1 = "" ]] && funcao_idioma || {
 [[ ${#1} -gt 2 ]] && funcao_idioma || id="$1"
  }
-error_fun () {
-msg -bar2 && msg -verm "ERROR de enlace VPS<-->GENERADOR" && msg -bar2
-[[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}
-exit 1
-}
-invalid_key () {
-msg -bar2 && msg -verm "#¡Key Invalida#! " && msg -bar2
-[[ -e $HOME/lista-arq ]] && rm $HOME/lista-arq
-exit 1
-}
-while [[ ! $Key ]]; do
-msg -bar2 && msg -ne "# DIGITE LA KEY #: " && read Key
-tput cuu1 && tput dl1
-done
-msg -ne "# Verificando Key # : "
-cd $HOME
-wget -O $HOME/lista-arq $(ofus "$Key")/$IP > /dev/null 2>&1 && echo -e "\033[1;32m Key Completa" || {
-   echo -e "\033[1;91m Key Incompleta"
-   invalid_key
-   exit
-   }
-IP=$(ofus "$Key" | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}') && echo "$IP" > /usr/bin/vendor_code
-sleep 1s
-function_verify
-updatedb
-if [[ -e $HOME/lista-arq ]] && [[ ! $(cat $HOME/lista-arq|grep "KEY INVALIDA!") ]]; then
-   msg -bar2
-   msg -verd "$(source trans -b es:${id} " GRACIAS POR ADQUIRIR TU SERIAL"|sed -e 's/[^a-z -]//ig'): \033[1;31m[ADMIN VPS]"
-   REQUEST=$(ofus "$Key"|cut -d'/' -f2)
-   [[ ! -d ${SCPinstal} ]] && mkdir ${SCPinstal}
-   pontos="."
-   stopping="$(source trans -b es:${id} "Verificando Actualizaciones"|sed -e 's/[^a-z -]//ig')"
-   for arqx in $(cat $HOME/lista-arq); do
-   msg -verm "${stopping}${pontos}"
-   wget -O ${SCPinstal}/${arqx} ${IP}:81/${REQUEST}/${arqx} > /dev/null 2>&1 && verificar_arq "${arqx}" || error_fun
-   tput cuu1 && tput dl1
-   pontos+="."
-   done
    sleep 1s
    msg -bar2
    listaarqs="$(locate "lista-arq"|head -1)" && [[ -e ${listaarqs} ]] && rm $listaarqs   
