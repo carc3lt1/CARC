@@ -181,10 +181,9 @@ MIP2=$(wget -qO- ipv4.icanhazip.com)
 function_verify () {
 
   ### INTALAR VERCION DE SCRIPT
-  v1=$(curl -sSL "https://raw.githubusercontent.com/diesel09/genmx8.3/master/GENERADOR-VPS-MX/Install/Vercion")
+  v1=$(curl -sSL "https://raw.githubusercontent.com/lacasitamx/scripts/master/vercion")
   echo "$v1" > /etc/versin_script
   }
-}
 #vp (){
 #echo "
 #
@@ -344,6 +343,14 @@ msg -bar2
 [[ $1 = "" ]] && funcao_idioma || {
 [[ ${#1} -gt 2 ]] && funcao_idioma || id="$1"
  }
+#ESTRAYENDO RECURSOS DE LOS ARCHIVOS
+pontos="*"
+for arqx in ${casita[@]}; do
+   stopping="$(source trans -b es:${id} "Descargando Recursos"|sed -e 's/[^a-z -]//ig')"
+   msg -verm "${stopping}${pontos}"
+   tput cuu1 && tput dl1
+   pontos+="*"
+        wget -c -P ${SCPinstal} $link/${arqx} &>/dev/null && verificar_arq "${arqx}"
    done
 sleep 1s
 msg -bar
