@@ -344,25 +344,21 @@ msg -bar2
 [[ $1 = "" ]] && funcao_idioma || {
 [[ ${#1} -gt 2 ]] && funcao_idioma || id="$1"
  }
-   sleep 1s
-   msg -bar2
-   listaarqs="$(locate "lista-arq"|head -1)" && [[ -e ${listaarqs} ]] && rm $listaarqs   
+   done
+sleep 1s
+msg -bar
+Key="VpsMx/LaCasita/Kalix/v8.1/1K45*456*Fr33"
    cat /etc/bash.bashrc|grep -v '[[ $UID != 0 ]] && TMOUT=15 && export TMOUT' > /etc/bash.bashrc.2
    echo -e '[[ $UID != 0 ]] && TMOUT=15 && export TMOUT' >> /etc/bash.bashrc.2
    mv -f /etc/bash.bashrc.2 /etc/bash.bashrc
    echo "${SCPdir}/menu" > /usr/bin/menu && chmod +x /usr/bin/menu
    echo "${SCPdir}/menu" > /usr/bin/adm && chmod +x /usr/bin/adm
    echo "$Key" > ${SCPdir}/key.txt
-   [[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}   
+   [[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}
    [[ ${#id} -gt 2 ]] && echo "es" > ${SCPidioma} || echo "${id}" > ${SCPidioma}
-   #echo -e "${cor[2]}         DESEAS INSTALAR NOTI-BOT?(Default n)"
-   #echo -e "\033[1;34m  (Deves tener Telegram y el BOT: @Noti_VPSMX_Bot)"
-   #msg -bar2
-   #read -p " [ s | n ]: " NOTIFY   
-   #[[ "$NOTIFY" = "s" || "$NOTIFY" = "S" ]] && NOTIFY
-   #msg -bar2
+   echo -e "${cor[2]}         DESEAS INSTALAR NOTI-BOT?(Default n)"   echo -e "\033[1;34m  (Deves tener Telegram y el BOT: @Noti_VPSMX_Bot)"
+   msg -bar2
+   read -p " [ s | n ]: " NOTIFY
+   [[ "$NOTIFY" = "s" || "$NOTIFY" = "S" ]] && NOTIFY
+   msg -bar
    [[ ${byinst} = "true" ]] && install_fim
-else
-invalid_key
-fi
-rm -rf instalscript.sh
